@@ -1,0 +1,50 @@
+
+Bugs:
+1. Ran: 
+-curl -X POST -H "application/json" -d '{"password":"angrymonkey"}' http://127.0.0.1:8088/hash
+> Malformed Input
+
+-Verifying from http://127.0.0.1:8088/hash/1  
+Returns "Hash not found"
+-Redirected the output to a file, which caused the application to execute and create a file
+curl -X POST -H "application/json" -d '{"password":"angrymonkey"}' http://127.0.0.1:8088/hash > 55 
+Verifying has from http://127.0.0.1:8088/hash/55  returns "Hash not found"
+Issue: Cannot create hash
+
+2. Ran:
+curl -H "application/json" http://127.0.0.1:8088/hash/1
+Returned:
+>Hash not found
+
+Replaced '1' with a file that was previously created
+curl -H "application/json" http://127.0.0.1:8088/hash/1
+>Hash not found
+
+Issue: Cannot find has
+
+3. Ran:
+C:\curl> curl -X POST -H "application/json" -d '{"password":"angrymonkey"}' http:/
+/127.0.0.1:8088/hash > 444
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    38  100    16  100    22      3      4  0:00:05  0:00:05 --:--:--     0
+
+Then Ran:
+curl http://127.0.0.1:8088/stats
+>{"TotalRequests":3,"AverageTime":0}
+
+Issue: AverageTime not reported
+
+4. Issue: Stats command execution not logged
+
+
+5. curl -X POST -d ‘shutdown’ http://127.0.0.1:8088/hash
+Issue: Did not return '200'
+
+6. Application still accepts and processes requests
+
+
+OS tested with:
+Windows 10
+
+

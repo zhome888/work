@@ -1,0 +1,69 @@
+Test Plan
+
+Objective: 
+Test the password hashing application(v.0c3d817) in Windows, Linux, and MacOs
+The password hashing application verifies passwords within the DaaS environment.  This will be implemented on Windows, Linux, and MacOS’s. 
+The purpose is to ensure that the password hashing applications works in supported environments connected to the DaaS environment, as well as those disconnected from the DaaS environment. 
+Test coverage will be done by Unit testing. 
+
+Assumptions:
+•	When launched, the application should wait for http connections
+•	It should answer on the PORT specified in the PORT environment variable.
+•	It should support three endpoints:
+	o	A POST to /hash 
+	o	A GET to /hash.
+	o	A GET to /stats 
+•	The software should be able to process multiple connections simultaneously.
+•	The software should support a graceful shutdown request.  Meaning, it should allow any in-flight password hashing to complete, reject any new requests, respond with a 200 and shutdown.
+•	No additional password requests should be allowed when shutdown is pending.
+•	Applications should be obtained from public S3 bucket
+•	Supported on the latest versions of Windows, Linux, and MacOS’s
+•	OS’s installed with latest updates
+•	OS’s connected to DaaS Environment
+•	 Will be tested in LAN and WAN environments.
+•	Different test sets will be created for each OS type
+
+
+Limitations:
+This will not be tested at scale
+Unsupported OS’s will not be tested
+Users/System not configured o the DaaS Environment will not be tested
+
+Requirements:
+Software will be obtained from public S3 bucket.  For each OS, there is a different download process:
+	Linux - https://s3.amazonaws.com/qa-broken-hashserve/broken-hashserve.tgz
+	Windows - https://s3.amazonaws.com/qa-broken-hashserve/broken-hashserve.tgz
+The port Environmental Variable should be set by using the following for your OS:
+	Linux example:
+1.	$ export PORT=8088
+
+
+Windows example:
+1.	C:/> SET PORT=8088
+2.	Use the Control Panel to set a System or User variable for PORT.  Remember to reopen your cmd window after doing this.
+
+
+Supported Operating Systems:
+•	Ubuntu 16.04
+•	Mac OS X - Sierra, High Sierra
+•	Windows 10
+Supported Browsers:
+•	Edge
+•	IE
+•	Firefox
+•	Chrome
+
+Performance:
+No Performance testing is scheduled for this effort
+
+Staff Time:
+1 QE Engineer to preform manual testing. 
+Time to execute test cases is set for 2 hours. 
+
+Test Approach:
+QE will test each function independently(Unit test).  Primary focus will  be on the Windows OS. 
+Any issues found will be added to the final summary. 
+Test summary will be included in the Readme file. 
+
+
+
